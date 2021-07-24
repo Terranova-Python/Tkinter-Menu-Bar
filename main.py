@@ -253,7 +253,7 @@ if root.resizable == True:
 
 if root.resizable == True:
     resizey_widget = Frame(window,bg=DGRAY,cursor='sb_v_double_arrow')
-    resizey_widget.pack(side=BOTTOM,ipadx=2,fill=X)
+    resizey_widget.pack(side=BOTTOM,ipady=2,fill=X)
 
 def resizey(event):
     if root.resizable == True and root.maximized == False:
