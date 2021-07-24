@@ -26,7 +26,7 @@ if winodow_icon != "":
     root.iconbitmap(winodow_icon) # to show your own icon 
 
 
-root.resizable = True #put False if you don't want your window to be resizable
+root.resizable = True # put false if you don't want your window to be resizable
 
 
 root.minimized = False # only to know if root is minimized
@@ -82,13 +82,14 @@ def minimize_me():
     root.minimized = True       
 
 
-def deminimize(event):
 
-    root.focus() 
-    root.attributes("-alpha",1) # so you can see the window when is not minimized
+def deminimize(event):
     if root.minimized == True:
+        root.attributes("-alpha",1) # so you can see the window when is not minimized
+        root.focus() 
         root.minimized = False                              
     
+
 
 
 
