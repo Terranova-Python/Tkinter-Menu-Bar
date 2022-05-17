@@ -1,16 +1,9 @@
 from tkinter import *
 from ctypes import windll
 
-
 #this code works fine on windows 10, i didn't try it in any other OS, if you use window 8, 7, ... 
 #or you use a distro of linux, you can try it anyway
-
-
 #this code works fine as a exe made in pyinstaller
-
-
-
-
 
 tk_title = "tk" # Put here your window title
 
@@ -19,28 +12,19 @@ root.title(tk_title)
 root.overrideredirect(True) # turns off title bar, geometry
 root.geometry('200x200+75+75') # set new geometry the + 75 + 75 is where it starts on the screen
 #root.iconbitmap("your_icon.ico") # to show your own icon 
-
-
-
 root.minimized = False # only to know if root is minimized
 root.maximized = False # only to know if root is maximized
-
-
-
 
 LGRAY = '#3e4042' # button color effects in the title bar (Hex color)
 DGRAY = '#25292e' # window background color               (Hex color)
 RGRAY = '#10121f' # title bar color                       (Hex color)
-
-
 
 root.config(bg="#25292e")
 title_bar = Frame(root, bg=RGRAY, relief='raised', bd=0,highlightthickness=0)
 
 
 def set_appwindow(mainWindow): # to display the window icon on the taskbar, 
-                               # even when using root.overrideredirect(True)
-
+                               # even when using root.overrideredirect(True
     # Some WindowsOS styles, required for task bar integration
     GWL_EXSTYLE = -20
     WS_EX_APPWINDOW = 0x00040000
@@ -54,11 +38,7 @@ def set_appwindow(mainWindow): # to display the window icon on the taskbar,
    
     mainWindow.wm_withdraw()
     mainWindow.after(10, lambda: mainWindow.wm_deiconify())
-
-
-
-
-
+    
 
 def minimize_me():
     root.attributes("-alpha",0) # so you can't see the window when is minimized
@@ -71,9 +51,7 @@ def deminimize(event):
     root.attributes("-alpha",1) # so you can see the window when is not minimized
     if root.minimized == True:
         root.minimized = False                              
-    
-
-
+        
 
 def maximize_me():
 
@@ -89,11 +67,6 @@ def maximize_me():
         root.geometry(root.normal_size)
         root.maximized = not root.maximized
         # now it is not maximized
-
-
-
-
-
 
 # put a close button on the title bar
 close_button = Button(title_bar, text='  ×  ', command=root.destroy,bg=RGRAY,padx=2,pady=2,font=("calibri", 13),bd=0,fg='white',highlightthickness=0)
@@ -118,31 +91,36 @@ window.pack(expand=1, fill=BOTH) # replace this with your main Canvas/Frame/etc.
 def changex_on_hovering(event):
     global close_button
     close_button['bg']='red'
+    
+    
 def returnx_to_normalstate(event):
     global close_button
     close_button['bg']=RGRAY
+    
 
 def change_size_on_hovering(event):
     global expand_button
     expand_button['bg']=LGRAY
+    
+    
 def return_size_on_hovering(event):
     global expand_button
     expand_button['bg']=RGRAY
+    
 
 def changem_size_on_hovering(event):
     global minimize_button
     minimize_button['bg']=LGRAY
+    
+    
 def returnm_size_on_hovering(event):
     global minimize_button
     minimize_button['bg']=RGRAY
-
-
-
+    
 
 def get_pos(event): # this is executed when the title bar is clicked to move the window
-
     if root.maximized == False:
-        
+ 
         xwin = root.winfo_x()
         ywin = root.winfo_y()
         startx = event.x_root
@@ -151,6 +129,7 @@ def get_pos(event): # this is executed when the title bar is clicked to move the
         ywin = ywin - starty
         xwin = xwin - startx
 
+        
         def move_window(event): # runs when window is dragged
             root.config(cursor="fleur")
             root.geometry(f'+{event.x_root + xwin}+{event.y_root + ywin}')
@@ -159,6 +138,7 @@ def get_pos(event): # this is executed when the title bar is clicked to move the
         def release_window(event): # runs when window is released
             root.config(cursor="arrow")
             
+            
         title_bar.bind('<B1-Motion>', move_window)
         title_bar.bind('<ButtonRelease-1>', release_window)
         title_bar_title.bind('<B1-Motion>', move_window)
@@ -166,17 +146,11 @@ def get_pos(event): # this is executed when the title bar is clicked to move the
     else:
         expand_button.config(text=" 🗖 ")
         root.maximized = not root.maximized
-        
-        
-        
-
 
 title_bar.bind('<Button-1>', get_pos) # so you can drag the window from the title bar
 title_bar_title.bind('<Button-1>', get_pos) # so you can drag the window from the title 
 
-
 # button effects in the title bar when hovering over buttons
-
 close_button.bind('<Enter>',changex_on_hovering)
 close_button.bind('<Leave>',returnx_to_normalstate)
 expand_button.bind('<Enter>', change_size_on_hovering)
@@ -184,20 +158,15 @@ expand_button.bind('<Leave>', return_size_on_hovering)
 minimize_button.bind('<Enter>', changem_size_on_hovering)
 minimize_button.bind('<Leave>', returnm_size_on_hovering)
 
-
-
-# resize the window width =======================================================================
-
+# resize the window width
 resizex_widget = Frame(window,bg=DGRAY,cursor='sb_h_double_arrow')
 resizex_widget.pack(side=RIGHT,ipadx=2,fill=Y)
 
 
 def resizex(event):
-
     xwin = root.winfo_x()
-
     difference = (event.x_root - xwin) - root.winfo_width()
-
+    
     if root.winfo_width() > 150 : # 150 is the minimum width for the window
         try:
             root.geometry(f"{ root.winfo_width() + difference }x{ root.winfo_height() }")
@@ -209,25 +178,17 @@ def resizex(event):
                 root.geometry(f"{ root.winfo_width() + difference }x{ root.winfo_height() }")
             except:
                 pass
-
-
+              
     resizex_widget.config(bg=DGRAY)
 
 resizex_widget.bind("<B1-Motion>",resizex)
 
-
-
-# resize the window height =======================================================================
-
-
-
+# resize the window height
 resizey_widget = Frame(window,bg=DGRAY,cursor='sb_v_double_arrow')
 resizey_widget.pack(side=BOTTOM,ipadx=2,fill=X)
 
 def resizey(event):
-
     ywin = root.winfo_y()
-
     difference = (event.y_root - ywin) - root.winfo_height()
 
     if root.winfo_height() > 150: # 150 is the minimum height for the window
@@ -246,24 +207,19 @@ def resizey(event):
 
 resizey_widget.bind("<B1-Motion>",resizey)
 
-
-
-
-
 # some settings
 root.bind("<FocusIn>",deminimize) # to view the window by clicking on the window icon on the taskbar
 root.after(10, lambda: set_appwindow(root)) # to see the icon on the task bar
 
 
-
-
-
-#YOUR CODE GOES HERE==================================================================================
-
+#YOUR CODE GOES between the lines :)
+# ===================================================================================================
 
 
 
 
+
+# Uncomment below to see example of packing a label
 #Label(window,text="Hello :D",bg=DGRAY,fg="#fff").pack(expand=1) # example 
 
 
@@ -272,8 +228,4 @@ root.after(10, lambda: set_appwindow(root)) # to see the icon on the task bar
 
 # ===================================================================================================
 
-
 root.mainloop()
-
-
-
