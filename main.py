@@ -1,7 +1,7 @@
 from tkinter import *
 from ctypes import windll
 
-#this code works fine on windows 10, i didn't try it in any other OS, if you use window 8, 7, ... 
+#this code works fine on windows 10, i didn't try it in any other OS, if you use window 11, 8, 7, ... 
 #or you use a distro of linux, you can try it anyway
 #this code works fine as a exe made in pyinstaller
 
